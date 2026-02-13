@@ -1,26 +1,135 @@
+/* app/globals.css */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Кастомна тема Galactic Pizza */
+@theme {
+  /* Brand colors - pizza orange */
+  --color-pizza-50: #fff7ed;
+  --color-pizza-100: #ffedd5;
+  --color-pizza-200: #fed7aa;
+  --color-pizza-300: #fdba74;
+  --color-pizza-400: #fb923c;
+  --color-pizza-500: #f97316;
+  --color-pizza-600: #ea580c;
+  --color-pizza-700: #c2410c;
+  --color-pizza-800: #9a3412;
+  --color-pizza-900: #7c2d12;
+
+  /* Space theme colors */
+  --color-space-950: #0a0a0f;
+  --color-space-900: #111118;
+  --color-space-800: #1a1a24;
+  --color-space-700: #252532;
+  --color-space-600: #363648;
+
+  /* Custom fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::-webkit-scrollbar-track {
+  background: var(--color-space-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-space-600);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(75 75 100);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(to right, var(--color-pizza-400), var(--color-pizza-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect for buttons */
+.glow-orange {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s;
+}
+
+.card-hover:hover {
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.1);
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Додайте до globals.css */
+
+/* Prose link styles */
+.prose a {
+  color: var(--color-pizza-500);
+  text-decoration: none;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+/* Inline code */
+.prose code {
+  background: var(--color-space-800);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  color: var(--color-pizza-400);
+  font-weight: normal;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+/* Code blocks */
+.prose pre {
+  background: var(--color-space-900);
+  border: 1px solid var(--color-space-700);
+  border-radius: 0.5rem;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: rgb(209 213 219);
+}
+
+/* Headings scroll margin */
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  scroll-margin-top: 5rem;
 }
