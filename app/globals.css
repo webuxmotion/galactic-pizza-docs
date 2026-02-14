@@ -274,3 +274,16 @@ html {
 .prose tbody tr:hover {
   @apply bg-gray-900/50;
 }
+
+/* Breadcrumb styles */
+nav[aria-label="Breadcrumb"] {
+  @apply py-2;
+}
+
+nav[aria-label="Breadcrumb"] ol {
+  @apply flex flex-wrap items-center;
+}
+
+nav[aria-label="Breadcrumb"] a:hover {
+  @apply underline underline-offset-4;
+}
