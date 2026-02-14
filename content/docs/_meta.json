@@ -1,0 +1,24 @@
+{
+  "index": {
+    "title": "Introduction",
+    "icon": "👋"
+  },
+  "guides": {
+    "title": "Guides",
+    "icon": "📖",
+    "description": "Step-by-step tutorials"
+  },
+  "menu": {
+    "title": "Menu",
+    "icon": "🍕"
+  },
+  "delivery": {
+    "title": "Delivery",
+    "icon": "🚚"
+  },
+  "api": {
+    "title": "API Reference",
+    "icon": "🔌",
+    "badge": "v2.0"
+  }
+}
