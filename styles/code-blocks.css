@@ -1,0 +1,58 @@
+/* styles/code-blocks.css */
+
+/* Code blocks */
+[data-rehype-pretty-code-figure] {
+  @apply my-6;
+}
+
+[data-rehype-pretty-code-figure] pre {
+  @apply rounded-lg border border-gray-800 bg-[#0d1117] py-4 overflow-x-auto;
+}
+
+[data-rehype-pretty-code-figure] code {
+  @apply text-sm leading-relaxed;
+}
+
+/* Line numbers - only for code blocks, not inline code */
+[data-rehype-pretty-code-figure] pre code {
+  counter-reset: line;
+}
+
+[data-rehype-pretty-code-figure] pre [data-line] {
+  @apply pl-3 pr-4 border-l-2 border-transparent;
+}
+
+[data-rehype-pretty-code-figure] pre [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-3 text-gray-600;
+}
+
+/* Highlighted lines */
+[data-rehype-pretty-code-figure] .highlighted-line {
+  @apply bg-orange-500/10 border-l-orange-500;
+}
+
+/* Highlighted characters */
+.highlighted-chars {
+  @apply bg-orange-500/20 rounded px-1;
+}
+
+/* Code title */
+[data-rehype-pretty-code-title] {
+  @apply text-sm text-gray-400 bg-gray-900 px-4 py-2 rounded-t-lg border border-b-0 border-gray-800 font-mono;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  @apply rounded-t-none;
+}
+
+/* Inline code */
+.prose :where(code):not(:where(pre code)) {
+  @apply bg-gray-800 text-orange-400 px-1.5 py-0.5 rounded text-sm font-normal;
+}
+
+.prose :where(code):not(:where(pre code))::before,
+.prose :where(code):not(:where(pre code))::after {
+  content: none;
+}

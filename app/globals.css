@@ -2,6 +2,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Імпорт стилів для блоків коду */
+@import "../styles/code-blocks.css";
+
 /* ============================================
    THEME — Кастомні кольори Galactic Pizza
    (з уроку 5)

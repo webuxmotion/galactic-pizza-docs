@@ -4,8 +4,29 @@ import path from 'path'
 import matter from 'gray-matter'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
+import rehypePrettyCode from 'rehype-pretty-code'
+import { mdxComponents } from './mdx-components'
 
 const contentDirectory = path.join(process.cwd(), 'content')
+
+// Налаштування підсвітки синтаксису
+const rehypePrettyCodeOptions = {
+  theme: 'github-dark',
+  keepBackground: true,
+  defaultLang: 'plaintext',
+  onVisitLine(node: any) {
+    // Prevent lines from collapsing
+    if (node.children.length === 0) {
+      node.children = [{ type: 'text', value: ' ' }]
+    }
+  },
+  onVisitHighlightedLine(node: any) {
+    node.properties.className.push('highlighted-line')
+  },
+  onVisitHighlightedChars(node: any) {
+    node.properties.className = ['highlighted-chars']
+  },
+}
 
 export interface DocMeta {
   title: string
@@ -30,27 +51,29 @@ export async function getDocBySlug(slug: string[]) {
 
   // Read file content
   const fileContent = fs.readFileSync(fullPath, 'utf8')
-
-  // Parse frontmatter
   const { data, content } = matter(fileContent)
 
-  // Compile MDX
+  // Compile MDX with remark-gfm and rehype-pretty-code
   const { content: mdxContent } = await compileMDX({
     source: content,
+    components: mdxComponents,
     options: {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkGfm],
+        rehypePlugins: [
+          [rehypePrettyCode, rehypePrettyCodeOptions],
+        ],
       },
     },
   })
 
   return {
     meta: {
-      title: data.title || slug[slug.length - 1],
+      title: data.title || 'Untitled',
       description: data.description || '',
       slug: slug.join('/'),
-    } as DocMeta,
+    },
     content: mdxContent,
   }
 }
