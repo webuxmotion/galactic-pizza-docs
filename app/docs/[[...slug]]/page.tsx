@@ -1,6 +1,9 @@
 // app/docs/[[...slug]]/page.tsx
 import { Breadcrumbs } from '@/components/docs/Breadcrumbs'
+import { Pagination } from '@/components/docs/Pagination'
+import { KeyboardNavigation } from '@/components/docs/KeyboardNavigation'
 import { getDocBySlug } from '@/lib/mdx'
+import { getPaginationLinks } from '@/lib/pagination'
 import { notFound } from 'next/navigation'
 
 interface DocsPageProps {
@@ -15,6 +18,11 @@ export default async function DocPage({ params }: DocsPageProps) {
     notFound()
   }
 
+  // Обчислюємо pagination на сервері
+  const slugPath = slug.join('/')
+  const pathname = slugPath === 'index' ? '/docs' : `/docs/${slugPath}`
+  const { prev, next } = getPaginationLinks(pathname)
+
   return (
     <article>
       <Breadcrumbs />
@@ -27,6 +35,9 @@ export default async function DocPage({ params }: DocsPageProps) {
         <hr className="my-8 border-gray-800" />
         {doc.content}
       </div>
+
+      <Pagination prev={prev} next={next} />
+      <KeyboardNavigation prev={prev} next={next} />
     </article>
   )
 }
