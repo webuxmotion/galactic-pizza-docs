@@ -1,8 +1,8 @@
 // app/layout.tsx
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ThemeProvider } from '@/components/ThemeProvider'
 import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,13 +18,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-gray-950 text-white antialiased min-h-screen flex flex-col`}>
-        <Header />
-        <div className="flex-1">
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-white dark:bg-gray-950 text-gray-900 dark:text-white antialiased`}>
+        <ThemeProvider>
+          <Header />
           {children}
-        </div>
-        <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )

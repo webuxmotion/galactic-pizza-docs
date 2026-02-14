@@ -2,6 +2,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Dark mode через selector — додати після @plugin */
+@variant dark (&:where(.dark, .dark *));
+
 /* Імпорт стилів для блоків коду */
 @import "../styles/code-blocks.css";
 
@@ -32,6 +35,14 @@
   /* Custom fonts */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Семантичні кольори для тем */
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-border: rgb(var(--border));
+  --color-accent: rgb(var(--accent));
 }
 
 /* ============================================
@@ -286,4 +297,28 @@ nav[aria-label="Breadcrumb"] ol {
 
 nav[aria-label="Breadcrumb"] a:hover {
   @apply underline underline-offset-4;
+}
+
+/* ============================================
+   THEME VARIABLES — Змінні для світлої/темної теми
+   (урок 14)
+   ============================================ */
+:root {
+  /* Light theme */
+  --background: 255 255 255;
+  --foreground: 17 17 24;
+  --muted: 243 244 246;
+  --muted-foreground: 107 114 128;
+  --border: 229 231 235;
+  --accent: 249 115 22;
+}
+
+.dark {
+  /* Dark theme — використовуємо кольори space */
+  --background: 10 10 15;
+  --foreground: 255 255 255;
+  --muted: 26 26 36;
+  --muted-foreground: 156 163 175;
+  --border: 55 65 81;
+  --accent: 249 115 22;
 }
