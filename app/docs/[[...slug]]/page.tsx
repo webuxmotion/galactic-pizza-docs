@@ -1,5 +1,6 @@
 // app/docs/[[...slug]]/page.tsx
 import Link from 'next/link'
+import { getDocBySlug } from '@/lib/mdx'
 
 interface DocsPageProps {
   params: Promise<{
@@ -7,7 +8,7 @@ interface DocsPageProps {
   }>
 }
 
-// Компонент головної сторінки документації
+// Головна сторінка документації (зберігаємо з уроку 4)
 function DocsHome() {
   return (
     <div className="prose prose-invert max-w-none">
@@ -54,8 +55,8 @@ function DocsHome() {
   )
 }
 
-// Компонент для підсторінок
-function DocsContent({ slug }: { slug: string[] }) {
+// Заглушка для сторінок без MDX контенту (зберігаємо з уроку 4)
+function DocsPlaceholder({ slug }: { slug: string[] }) {
   const path = slug.join('/')
 
   return (
@@ -83,6 +84,22 @@ export default async function DocPage({ params }: DocsPageProps) {
     return <DocsHome />
   }
 
-  // Інакше показуємо контент підсторінки
-  return <DocsContent slug={slug} />
+  // Завантажуємо MDX контент
+  const doc = await getDocBySlug(slug)
+
+  // Якщо MDX не знайдено — показуємо заглушку
+  if (!doc) {
+    return <DocsPlaceholder slug={slug} />
+  }
+
+  return (
+    <article className="prose prose-invert max-w-none">
+      <h1>{doc.meta.title}</h1>
+      {doc.meta.description && (
+        <p className="lead text-gray-400">{doc.meta.description}</p>
+      )}
+      <hr className="my-8 border-gray-800" />
+      {doc.content}
+    </article>
+  )
 }
