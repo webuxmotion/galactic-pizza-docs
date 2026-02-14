@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { compileMDX } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
@@ -38,6 +39,9 @@ export async function getDocBySlug(slug: string[]) {
     source: content,
     options: {
       parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
     },
   })
 
