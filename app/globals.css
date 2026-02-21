@@ -322,3 +322,77 @@ nav[aria-label="Breadcrumb"] a:hover {
   --border: 55 65 81;
   --accent: 249 115 22;
 }
+
+/* Responsive typography */
+.prose {
+  @apply text-base sm:text-lg;
+}
+
+.prose h1 {
+  @apply text-2xl sm:text-3xl lg:text-4xl;
+}
+
+.prose h2 {
+  @apply text-xl sm:text-2xl;
+}
+
+.prose h3 {
+  @apply text-lg sm:text-xl;
+}
+
+/* Responsive code blocks */
+.prose pre {
+  @apply -mx-4 sm:mx-0 rounded-none sm:rounded-lg;
+}
+
+/* Responsive tables */
+.prose table {
+  @apply block sm:table overflow-x-auto;
+}
+
+/* Container Queries для адаптивних карток */
+.card-container {
+  container-type: inline-size; /* Створює контейнер для container queries */
+}
+
+/* Стилі на основі ширини контейнера (не viewport!) */
+@container (min-width: 400px) {
+  .card-content {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+@container (max-width: 399px) {
+  .card-content {
+    display: block;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for fixed header */
+:target {
+  scroll-margin-top: 5rem;
+}
+
+/* Heading anchor link styling */
+.prose h2,
+.prose h3 {
+  @apply scroll-mt-20;
+}
+
+/* Visual indicator for active section */
+.prose h2:target,
+.prose h3:target {
+  @apply relative;
+}
+
+.prose h2:target::before,
+.prose h3:target::before {
+  content: '';
+  @apply absolute -left-4 top-0 bottom-0 w-1 bg-accent rounded-full;
+}
